@@ -1,0 +1,50 @@
+{
+  services.hypridle = {
+    enable = true;
+
+    settings = {
+      general = {
+        lock_cmd = "pidof hyprlock || hyprlock";
+        before_sleep_cmd = "loginctl lock-session";
+        after_sleep_cmd = ''
+          hyprctl dispatch "hl.disp.dpms({ action = \"enable\" })"
+        '';
+      };
+
+      listener = [
+        {
+          timeout = 150;
+          on-timeout = "brightnessctl -s set 10";
+          on-resume = "brightnessctl -r";
+        }
+
+        # Keyboard backlight listener
+        #{
+        #  timeout = 150;
+        #  on-timeout = "brightnessctl -sd rgb:kbd_backlight set 0";
+        #  on-resume = "brightnessctl -rd rgb:kbd_backlight";
+        #}
+
+        {
+          timeout = 300;
+          on-timeout = "loginctl lock-session";
+        }
+
+        {
+          timeout = 330;
+          on-timeout = ''
+            hyprctl dispatch "hl.dsp.dpms({ action = \"disable\" })"
+          '';
+          on-resume = ''
+            hyprctl dispatch "hl.dsp.dpms({ action = \"enable\" })" && brightnessctl -r
+          '';
+        }
+
+        {
+          timeout = 1800;
+          on-timeout = "systemctl suspend";
+        }
+      ];
+    };
+  };
+}
