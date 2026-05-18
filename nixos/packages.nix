@@ -19,6 +19,7 @@
 
   environment.systemPackages = with pkgs; [
     inputs.rose-pine-hyprcursor.packages.${pkgs.system}.default
+    bitwarden-desktop
     kdePackages.qtsvg
     kdePackages.dolphin
     fastfetch

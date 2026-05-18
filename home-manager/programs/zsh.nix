@@ -12,6 +12,10 @@
     syntaxHighlighting.enable = true;
 
     history.size = 10000;
+
+    sessionVariables = {
+      SSH_AUTH_SOCK = "$HOME/.bitwarden-ssh-agent.sock";
+    };
   };
 }
 

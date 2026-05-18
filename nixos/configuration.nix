@@ -23,5 +23,7 @@
     "/share/xdg-desktop-portal"
   ];
 
+  programs.ssh.startAgent = false;
+
   system.stateVersion = "25.11";
 }
