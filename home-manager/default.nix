@@ -11,11 +11,12 @@
 
   home.stateVersion = "25.11";
 
-  programs.kitty.enable = true;
   wayland.windowManager.hyprland.enable = true;
 
   imports = [
     inputs.vicinae.homeManagerModules.default
+    inputs.catppuccin.homeModules.catppuccin
+    inputs.nixvim.homeModules.nixvim
     ./programs
     ./services
   ];

@@ -6,5 +6,8 @@
     ./hyprlock.nix
     ./zsh.nix
     ./starship.nix
+    ./kitty.nix
+    ./catppuccin.nix
+    ./nixvim.nix
   ];
 }

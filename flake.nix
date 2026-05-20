@@ -5,6 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-25.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     hyprland.url = "github:hyprwm/hyprland?ref=v0.36.0";
+    catppuccin.url = "github:catppuccin/nix/release-25.11";
     
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
@@ -13,6 +14,11 @@
     
     helium = {
       url = "github:AlvaroParker/helium-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nixvim = {
+      url = "github:nix-community/nixvim/nixos-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     
@@ -43,6 +49,7 @@
         specialArgs = { inherit inputs; };
         modules = [
           ./nixos/configuration.nix
+	  inputs.catppuccin.nixosModules.catppuccin
         ];
       };
 
