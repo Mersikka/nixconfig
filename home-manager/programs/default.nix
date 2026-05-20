@@ -9,5 +9,6 @@
     ./kitty.nix
     ./catppuccin.nix
     ./nixvim.nix
+    ./direnv.nix
   ];
 }
