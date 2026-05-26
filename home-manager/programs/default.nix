@@ -10,5 +10,6 @@
     ./catppuccin.nix
     ./nixvim.nix
     ./direnv.nix
+    ./zellij.nix
   ];
 }

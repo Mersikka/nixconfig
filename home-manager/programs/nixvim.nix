@@ -94,7 +94,7 @@
       scrolloff = 5;
     };
 
-    diagnostics = {
+    diagnostic.settings = {
       update_in_insert = true;
       severity_sort = true;
       float = {
