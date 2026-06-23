@@ -45,20 +45,24 @@
     in
     {
 
-      nixosConfigurations.smallarchie = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
-        modules = [
-          ./nixos/smallarchie-configuration.nix
-	        inputs.catppuccin.nixosModules.catppuccin
-        ];
-      };
+      nixosConfigurations = {
+        smallarchie = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./nixos/smallarchie-configuration.nix
+            inputs.catppuccin.nixosModules.catppuccin
+            { networking.hostName = "smallarchie"; }
+          ];
+        };
       
-      nixosConfigurations.sontiainen = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
-        modules = [
-          ./nixos/sontiainen-configuration.nix
-          inputs.catppuccin.nixosModules.catppuccin
-        ];
+        sontiainen = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./nixos/sontiainen-configuration.nix
+            inputs.catppuccin.nixosModules.catppuccin
+            { networking.hostName = "sontiainen"; }
+          ];
+        };
       };
     };
 }
