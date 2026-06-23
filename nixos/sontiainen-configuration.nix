@@ -7,7 +7,7 @@
 
 {
   imports = [
-    ./hardware-configuration.nix
+    ./sontiainen-hardware-configuration.nix
     inputs.home-manager.nixosModules.default
     ./modules
     ./services

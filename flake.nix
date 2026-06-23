@@ -45,13 +45,20 @@
     in
     {
 
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.smallarchie = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
         modules = [
-          ./nixos/configuration.nix
-	  inputs.catppuccin.nixosModules.catppuccin
+          ./nixos/smallarchie-configuration.nix
+	        inputs.catppuccin.nixosModules.catppuccin
         ];
       };
-
+      
+      nixosConfigurations.sontiainen = nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs; };
+        modules = [
+          ./nixos/sontiainen-configuration.nix
+          inputs.catppuccin.nixosModules.catppuccin
+        ];
+      };
     };
 }

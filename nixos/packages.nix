@@ -36,6 +36,7 @@
     home-manager
     inputs.helium.packages.x86_64-linux.default
     git
+    brightnessctl
     pavucontrol # PulseAudio Volume Control
     pamixer # Command-line mixer for PulseAudio
     bluez # Bluetooth support
