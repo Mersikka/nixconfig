@@ -1,6 +1,12 @@
 {
+  pkgs-unstable,
+  ...
+}:
+
+{
   programs.hyprlock = {
-    enable = true;
+    enable = false;
+    package = pkgs-unstable.hyprlock;
     settings = {
       general = {
         hide_cursor = true;

@@ -1,0 +1,34 @@
+{
+  pkgs,
+  pkgs-unstable,
+  inputs,
+  ...
+}:
+
+{
+  home.packages = with pkgs; [
+    _1password-gui
+    git
+    geteduroam
+    wget
+    nixfmt-tree
+    fastfetch
+    kdePackages.qtsvg
+    wl-clipboard
+    tree
+    #devenv
+    #kdePackages.dolphin
+    #telegram-desktop
+    #vesktop
+    #spotify
+    #firefox
+    helix
+    brightnessctl
+    pavucontrol
+    pamixer
+    inputs.helium.packages.x86_64-linux.default
+    ripgrep
+    fd
+    pkgs-unstable.rose-pine-hyprcursor
+  ];
+}

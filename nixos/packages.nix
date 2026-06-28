@@ -1,5 +1,6 @@
 {
   pkgs,
+  pkgs-unstable,
   inputs,
   ...
 }:
@@ -7,38 +8,40 @@
 {
   nixpkgs.config.allowUnfree = true;
 
-  programs = {
-    zsh.enable = true;
-    hyprland.enable = true;
+  xdg.portal = {
+    enable = true;
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+    ];
   };
 
-  services.displayManager.sddm = {
+
+  programs = {
+    zsh.enable = true;
+    #uwsm.enable = true;
+    hyprland = {
+      enable = true;
+
+      package = pkgs-unstable.hyprland;
+      portalPackage = pkgs-unstable.xdg-desktop-portal-hyprland;
+
+      #withUWSM = true;
+      xwayland.enable = true;
+    };
+  };
+
+  services.displayManager.ly = {
     enable = true;
-    wayland.enable = true;
+  };
+
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
   };
 
   environment.systemPackages = with pkgs; [
+    xdg-utils
     alsa-utils
-    inputs.rose-pine-hyprcursor.packages.${pkgs.system}.default
-    bitwarden-desktop
-    kdePackages.qtsvg
-    kdePackages.dolphin
-    fastfetch
-    nixfmt-tree
-    tree
-    wget
-    geteduroam
-    telegram-desktop
-    vesktop
-    spotify
-    firefox
-    helix
     home-manager
-    inputs.helium.packages.x86_64-linux.default
-    git
-    brightnessctl
-    pavucontrol # PulseAudio Volume Control
-    pamixer # Command-line mixer for PulseAudio
     bluez # Bluetooth support
     bluez-tools # Bluetooth tools
   ];

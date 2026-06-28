@@ -11,5 +11,7 @@
     ./nixvim.nix
     ./direnv.nix
     ./zellij.nix
+    ./vicinae.nix
+    ./xdg.nix
   ];
 }

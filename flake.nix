@@ -2,13 +2,11 @@
   description = "A very basic flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-26.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-    hyprland.url = "github:hyprwm/hyprland?ref=v0.36.0";
-    catppuccin.url = "github:catppuccin/nix/release-25.11";
-    
+    catppuccin.url = "github:catppuccin/nix/release-26.05";
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     
@@ -18,16 +16,7 @@
     };
 
     nixvim = {
-      url = "github:nix-community/nixvim/nixos-25.11";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    
-    vicinae.url = "github:vicinaehq/vicinae";
-
-    rose-pine-hyprcursor = {
-      url = "github:ndom91/rose-pine-hyprcursor";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.hyprlang.follows = "hyprland/hyprlang";
+      url = "github:nix-community/nixvim/nixos-26.05";
     };
   };
 
@@ -35,31 +24,60 @@
     { self, nixpkgs, ... }@inputs:
     let
       system = "x86_64-linux";
-      pkgs = import nixpkgs {
+      pkgs-unstable = import inputs.nixpkgs-unstable {
         inherit system;
+        config.allowUnfree = true;
+      };
 
-        config = {
-          allowUnfree = true;
+      openblasNoCheckOverlay = final: prev: {
+        openblas = prev.openblas.overrideAttrs (old: {
+          doCheck = false;
+        });
+
+        pkgsi686Linux = prev.pkgsi686Linux // {
+          openblas = prev.pkgsi686Linux.openblas.overrideAttrs (old: {
+            doCheck = false;
+          });
         };
       };
+
+      nixpkgsConfigModule = {
+        nixpkgs.config.allowUnfree = true;
+
+        nixpkgs.overlays = [
+          openblasNoCheckOverlay
+        ];
+      };
+
     in
     {
-
       nixosConfigurations = {
         smallarchie = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs; };
+          inherit system;
+
+          specialArgs = {
+            inherit inputs pkgs-unstable; 
+          };
+
           modules = [
             ./nixos/smallarchie-configuration.nix
             inputs.catppuccin.nixosModules.catppuccin
             { networking.hostName = "smallarchie"; }
           ];
         };
-      
+
         sontiainen = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs; };
+          inherit system;
+
+          specialArgs = {
+            inherit inputs pkgs-unstable;
+          };
+
           modules = [
             ./nixos/sontiainen-configuration.nix
             inputs.catppuccin.nixosModules.catppuccin
+            nixpkgsConfigModule
+
             { networking.hostName = "sontiainen"; }
           ];
         };

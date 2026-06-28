@@ -1,6 +1,19 @@
 {
+  pkgs-unstable,
+  ...
+}:
+
+{
   wayland.windowManager.hyprland = {
     enable = true;
+
+    configType = "hyprlang";
+
+    package = pkgs-unstable.hyprland;
+    portalPackage = pkgs-unstable.xdg-desktop-portal-hyprland;
+
+    xwayland.enable = true;
+    systemd.enable = true;
 
     settings = {
 
@@ -31,7 +44,7 @@
       env = [
         "XCURSOR_SIZE,24"
         "HYPRCURSOR_SIZE,24"
-	"HYPRCURSOR_THEME,rose-pine-hyprcursor"
+        "HYPRCURSOR_THEME,rose-pine-hyprcursor"
       ];
 
       #####################
@@ -40,7 +53,7 @@
       general = {
         gaps_in = 0;
         gaps_out = 0;
-        border_size = 2;
+        border_size = 1;
 
         "col.active_border" = "rgba(cba6f7ee)";
         "col.inactive_border" = "rgba(595959aa)";
@@ -128,7 +141,7 @@
         sensitivity = 0;
 
         touchpad = {
-          natural_scroll = false;
+          natural_scroll = true;
         };
       };
 

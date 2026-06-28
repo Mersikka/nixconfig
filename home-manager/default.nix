@@ -1,6 +1,4 @@
 {
-  config,
-  pkgs,
   inputs,
   ...
 }:
@@ -11,12 +9,10 @@
 
   home.stateVersion = "25.11";
 
-  wayland.windowManager.hyprland.enable = true;
-
   imports = [
-    inputs.vicinae.homeManagerModules.default
     inputs.catppuccin.homeModules.catppuccin
     inputs.nixvim.homeModules.nixvim
+    ./packages.nix
     ./programs
     ./services
   ];
