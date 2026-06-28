@@ -8,7 +8,6 @@
 {
   home.packages = with pkgs; [
     _1password-gui
-    git
     geteduroam
     wget
     nixfmt-tree

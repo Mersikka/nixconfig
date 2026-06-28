@@ -28,10 +28,21 @@
 
   };
 
-  environment.pathsToLink = [
-    "/share/applications"
-    "/share/xdg-desktop-portal"
-  ];
+  environment = {
+    pathsToLink = [
+      "/share/applications"
+      "/share/xdg-desktop-portal"
+    ];
+
+    etc = {
+      "1password/custom_allowed_browsers" = {
+        text = ''
+          helium
+        '';
+        mode = "0755";
+      };
+    };
+  };
 
   programs.ssh.startAgent = false;
   system.stateVersion = "26.05";
