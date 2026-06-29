@@ -5,7 +5,7 @@
 
 {
   programs.hyprlock = {
-    enable = false;
+    enable = true;
     package = pkgs-unstable.hyprlock;
     settings = {
       general = {
