@@ -61,7 +61,7 @@
 
           modules = [
             ./nixos/configuration.nix
-	    ./nixos/hw-confs/smallarchie-hardware-configuration.nix
+            ./nixos/hw-confs/smallarchie-hardware-configuration.nix
             inputs.catppuccin.nixosModules.catppuccin
             { networking.hostName = "smallarchie"; }
           ];
@@ -76,7 +76,7 @@
 
           modules = [
             ./nixos/configuration.nix
-	    ./nixos/hw-confs/sontiainen-hardware-configuraion.nix
+            ./nixos/hw-confs/sontiainen-hardware-configuraion.nix
             inputs.catppuccin.nixosModules.catppuccin
             nixpkgsConfigModule
 
@@ -84,22 +84,28 @@
           ];
         };
 
-	sitti = nixpkgs.lib.nixosSystem {
-	  inherit system;
+        sitti = nixpkgs.lib.nixosSystem {
+          inherit system;
 
-	  specialArgs = {
-	    inherit inputs pkgs-unstable;
-	  };
+          specialArgs = {
+            inherit inputs pkgs-unstable;
+          };
 
-	  modules = [
-	    ./nixos/configuration.nix
-	    ./nixos/hw-confs/sitti-hardware-configuration.nix
-	    inputs.catppuccin.nixosModules.catppuccin
-	    nixpkgsConfigModule
+          modules = [
+            ./nixos/configuration.nix
+            ./nixos/hw-confs/sitti-hardware-configuration.nix
+            inputs.catppuccin.nixosModules.catppuccin
+            nixpkgsConfigModule
 
-	    { networking.hostName = "sitti"; }
-	  ];
-	};
+            {
+              home-manager.users.mio.imports = [
+                ./hosts/sitti/home.nix
+              ];
+            }
+
+            { networking.hostName = "sitti"; }
+          ];
+        };
       };
     };
 }
