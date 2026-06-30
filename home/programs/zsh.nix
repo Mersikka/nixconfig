@@ -23,6 +23,12 @@
     sessionVariables = {
       #SSH_AUTH_SOCK = "$HOME/.bitwarden-ssh-agent.sock";
     };
+
+    initContent = ''
+      if [[ -z "$ZELLIJ" ]] && [[ -z "$SSH_CONNECTION" ]] && [[ $- == *i* ]]; then
+        zellij attach -c
+      fi
+    '';
   };
 }
 
