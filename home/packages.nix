@@ -15,7 +15,7 @@
     kdePackages.qtsvg
     wl-clipboard
     tree
-    #devenv
+    devenv
     #kdePackages.dolphin
     #telegram-desktop
     #vesktop

@@ -13,6 +13,7 @@
     colorschemes.catppuccin.enable = true;
     plugins = {
       lualine.enable = true;
+      cmp-nvim-lsp.enable = true;
       nix.enable = true;
       noice.enable = true;
       notify.enable = true;
@@ -25,6 +26,11 @@
 
       treesitter = {
         enable = true;
+
+        grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+          rust
+        ];
+
         settings = {
           highlight.enable = true;
           indent.enable = true;
@@ -97,23 +103,49 @@
 
       cmp = {
         enable = true;
+        autoEnableSources = true;
         settings = {
           sources = [
             { name = "nvim_lsp"; }
             { name = "buffer"; }
             { name = "path"; }
           ];
+
+          mapping = {
+            "<C-Space>" = "cmp.mapping.complete()";
+            "<CR>" = "cmp.mapping.confirm({ select = true })";
+            "<Tab>" = "cmp.mapping.select_next_item()";
+            "<S-Tab>" = "cmp.mapping.select_prev_item()";
+          };
         };
       };
+
+
       lsp = {
         enable = true;
-        
+
         capabilities = ''
           capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
         '';
 
         servers = {
           nixd.enable = true;
+          rust_analyzer = {
+            enable = true;
+
+            installCargo = false;
+            installRustc = false;
+
+            settings = {
+              cargo.allFeatures = true;
+              check.command = "clippy";
+              "rust-analyzer" = {
+                completion = {
+                  autoimport.enable = true;
+                };
+              };
+            };
+          };
           pyrefly = {
             enable = true;
             cmd = [ "pyrefly" "lsp" ];
@@ -150,6 +182,21 @@
         };
       };
     };
+
+
+    autoCmd = [
+      {
+        event = "BufWritePre";
+        pattern = "*.rs";
+        callback = {
+          __raw = ''
+            function()
+              vim.lsp.buf.format({ async = false })
+            end
+          '';
+        };
+      }
+    ];
 
     opts = {
       # Line numbers

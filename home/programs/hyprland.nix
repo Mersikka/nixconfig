@@ -182,7 +182,7 @@
       hl.bind(mainMod .. " + P", hl.dsp.exec_cmd("hyprctl dispatch pseudo"))
 
       hl.bind("ALT + RETURN", hl.dsp.window.fullscreen())
-      hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("hyprlock"))
+      hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("loginctl lock-session"), { desc = "Lock session", })
 
       hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "l" }))
       hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "r" }))

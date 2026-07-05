@@ -76,7 +76,7 @@
 
           modules = [
             ./nixos/configuration.nix
-            ./nixos/hw-confs/sontiainen-hardware-configuraion.nix
+            ./nixos/hw-confs/sontiainen-hardware-configuration.nix
             inputs.catppuccin.nixosModules.catppuccin
             nixpkgsConfigModule
 
